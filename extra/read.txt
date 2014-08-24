@@ -1,6 +1,12 @@
 
-1)
-file-upload-options.php'ye su kodu ekledim: (24 - 34 satir arasi)
+1) surayi hala duzeltemedim. Amac, butonla kullaniciyi diger sayfaya yonlendirmek. Bu yuzden diger sayfanin bilgileri gerekli
+<form action="'.get_option("siteurl").'/yeni-dokuman/" method="get">
+gibi bisey olabilir.
+
+Ya da butonu kaldir, kullanici Yeni dokuman Ekle bolumune menuden ulassin
+
+
+2)file-upload-options.php'ye su kodu ekledim: (24 - 34 satir arasi)
 
 array(  "name" => __("Google Client ID", "nm_file_uploader_pro"),
 		"desc" => __("Please enter google client ID. For help, go to documentation", "nm_file_uploader_pro"),
@@ -20,7 +26,7 @@ Bu script'te refresh_token degerini options degeri olarak wp database'ine kayded
 		
 		
 
-2) ajax-catalog.php'de 240. ile 254. satirlari degistirdim
+3) ajax-catalog.php'de 240. ile 254. satirlari degistirdim
 
 $clientID = get_option( 'nm_file_clientID');
 $secretKey = get_option( 'nm_file_secretKey');
@@ -38,10 +44,10 @@ echo '<br>'.$google_token->refresh_token;
 $service = new Google_DriveService($client); 
 
 
-3) ajax-catalog.php ve catalog.php'de $step degiskenini elle belirlemek yerine options'da belli olan degeri aldim =>  $step = get_option('nm_file_file_limit');
+4) ajax-catalog.php ve catalog.php'de $step degiskenini elle belirlemek yerine options'da belli olan degeri aldim =>  $step = get_option('nm_file_file_limit');
 
 
-4) catalog.php'ye su kodu ekledim:
+5) catalog.php'ye su kodu ekledim:
 
 totalFiles = parseInt($("#dataTable").attr("value"));
 if(totalFiles <= step){
@@ -51,7 +57,7 @@ if(totalFiles <= step){
 Amac ilk baslarda cok az file olcagi icin, step sayisi file saysindan buyuk olabilir. Eger oyleyse Next butonunu hide() ile gizliyoruz:
 
 
-5) nm_fileuploader.php'de 420. ile 435. satirlari degistirdim: (key ve id, options sayfasindan geliyor)
+6) nm_fileuploader.php'de 420. ile 435. satirlari degistirdim: (key ve id, options sayfasindan geliyor)
 
 $clientID = get_option( 'nm_file_clientID');
 $secretKey = get_option( 'nm_file_secretKey');
