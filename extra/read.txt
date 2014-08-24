@@ -1,0 +1,72 @@
+
+1)
+file-upload-options.php'ye su kodu ekledim: (24 - 34 satir arasi)
+
+array(  "name" => __("Google Client ID", "nm_file_uploader_pro"),
+		"desc" => __("Please enter google client ID. For help, go to documentation", "nm_file_uploader_pro"),
+		"id" => $nmf_shortname."_clientID",
+		"type" => "text",
+		"std"   => 5),
+
+array(  "name" => __("Google Secret Key", "nm_file_uploader_pro"),
+		"desc" => __("Please enter google secret key. For help, go to documentation", "nm_file_uploader_pro"),
+		"id" => $nmf_shortname."_secretKey",
+		"type" => "text",
+		"std"   => 5),
+		
+
+Ayriyetten; kullanicinin bir kereye mahsus google hesabina giris yapmasi gerekiyor. Onun icin ayri scipt var => googledocsAcces.php
+Bu script'te refresh_token degerini options degeri olarak wp database'ine kaydediyoruz.
+		
+		
+
+2) ajax-catalog.php'de 240. ile 254. satirlari degistirdim
+
+$clientID = get_option( 'nm_file_clientID');
+$secretKey = get_option( 'nm_file_secretKey');
+$client->setClientId($clientID);
+$client->setClientSecret($secretKey);
+$client->setRedirectUri('urn:ietf:wg:oauth:2.0:oob');
+$client->setScopes(array('https://www.googleapis.com/auth/drive'));
+
+$client->setAccessType('offline');
+
+$accessToken = get_option('refresh_token');
+$google_token= json_decode($accessToken);
+$client->refreshToken($google_token->refresh_token);
+echo '<br>'.$google_token->refresh_token;
+$service = new Google_DriveService($client); 
+
+
+3) ajax-catalog.php ve catalog.php'de $step degiskenini elle belirlemek yerine options'da belli olan degeri aldim =>  $step = get_option('nm_file_file_limit');
+
+
+4) catalog.php'ye su kodu ekledim:
+
+totalFiles = parseInt($("#dataTable").attr("value"));
+if(totalFiles <= step){
+    $("#right").hide();
+}
+
+Amac ilk baslarda cok az file olcagi icin, step sayisi file saysindan buyuk olabilir. Eger oyleyse Next butonunu hide() ile gizliyoruz:
+
+
+5) nm_fileuploader.php'de 420. ile 435. satirlari degistirdim: (key ve id, options sayfasindan geliyor)
+
+$clientID = get_option( 'nm_file_clientID');
+$secretKey = get_option( 'nm_file_secretKey');
+echo '<br>'.$clientID;
+echo '<br>'.$secretKey;
+$client->setClientId($clientID);
+$client->setClientSecret($secretKey);
+$client->setRedirectUri('urn:ietf:wg:oauth:2.0:oob');
+$client->setScopes(array('https://www.googleapis.com/auth/drive'));
+
+$client->setAccessType('offline');
+
+$accessToken = get_option('refresh_token');
+$google_token= json_decode($accessToken);
+$client->refreshToken($google_token->refresh_token);
+echo '<br>'.$google_token->refresh_token;
+$service = new Google_DriveService($client);
+
