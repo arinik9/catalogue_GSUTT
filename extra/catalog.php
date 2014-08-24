@@ -15,7 +15,7 @@ global $user_ID;
 
 $step = get_option('nm_file_file_limit');
 $echo = "";
-//action="'.get_option("siteurl").'/?page_id=83/" method="get"
+//action="'.get_option("siteurl").'/yeni-dokuman/" method="get"
 $echo .= '<form action="http://localhost/wp/?page_id=83" method="get">
   <input type="submit" class="button-link" value="Yeni Döküman Eklemek Için Tiklayiniz"></form><br><br>';
 $echo .= '<label for="autocomplete"><h2>Metin ismi girerek arama yapabilirsiniz: </h2></label>
