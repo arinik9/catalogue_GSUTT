@@ -730,7 +730,7 @@ class nmFileUploader {
 	deleting file
 
 	*/
-
+/* this function is depreciated => artik bu fonksiyon yerine ajaxdaki delete fonksiyonunu kullaniyoruz
 	public function deleteFile($fileid, $googleFileID = "")
 
 	{
@@ -770,32 +770,14 @@ class nmFileUploader {
 
 //Veritabanindan da siliyoruz
 
-/*	ana table'dan siliyoruz	*/
-		//$rsObj = $wpdb->get_row("SELECT fileName FROM ".$wpdb->prefix . nmFileUploader::$tblName." WHERE fileID = ".$fileid);
-
 		$res = $wpdb->query("DELETE FROM ".$wpdb->prefix . nmFileUploader::$tblName." WHERE fileID = $fileid" );
 
-		/*if($res){
-
-			$upPath=wp_upload_dir();
-
-			$path=$upPath['basedir']."/user_uploads/".$current_user -> user_nicename.'/'.$rsObj->fileName;
-
-			$del=@unlink($path);
-		}*/
-
-/*	toplam file sayisini 1 azaltiyoruz	*/
-		//simdilik gerek yok//$row = $wpdb->get_row("SELECT total FROM ".$wpdb->prefix . "totalFilesUploaded WHERE id = 1");
-		//$total = $row->total;
-		//$wpdb->update( $wpdb->prefix . "totalFilesUploaded", array('total' => ($total-1)), array( 'id' => 1 ), array( '%d' ), array( '%d' ) );
-
-		//print_r($res);
 
 		return $res;
 
 	}
 
-
+*/
 
 
 
