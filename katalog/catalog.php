@@ -204,7 +204,10 @@ $(".orderAuthor").attr('checked', false);
 $(".orderDate").attr('checked', false);
 $('#autocomplete2').val("");
 
-
+totalFiles = parseInt($("#dataTable").attr("value"));
+if(totalFiles <= step){
+   $("#right").hide();
+}
 
 /* Click functions*/
 
